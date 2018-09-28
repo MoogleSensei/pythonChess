@@ -107,6 +107,28 @@ def getKingMoves(pos, chessBoard) :
 	solutionMoves.sort()
 	return solutionMoves
 
+def getPawnMoves(pos, direction, chessBoard) : 
+	column, row = list(pos.strip().lower())
+	row = int(row) - 1
+	column = alpha_to_index[column]
+	solutionMoves = []
+
+	if direction.lower() == "up" :
+		dir = 1
+	else :
+		dir = -1
+
+	if 8 > row + dir and row + dir >= 0 :
+		solutionMoves.append((row + dir, column))
+	if 8 > row + dir and row + dir >= 0 and 8 > column + dir:
+		solutionMoves.append((row + dir, column + 1))
+	if 8 > row + dir and row + dir >= 0 and column - dir >= 0 :
+		solutionMoves.append((row + dir, column - 1))
+	
+	solutionMoves = ["".join([index_to_alpha[i[1]], str(i[0] + 1)]) for i in solutionMoves]
+	solutionMoves.sort()
+	return solutionMoves
+
 chessBoard = [[1] * 8 for i in range(8)]
 
 alpha_to_index = {
@@ -130,8 +152,9 @@ index_to_alpha = {
 	7 : "h",
 }
 
-print(getKnightMoves("d4",chessBoard))
-print(getRookMoves("d4",chessBoard))
-print(getBishopMoves("d4",chessBoard))
-print(getQueenMoves("d4",chessBoard))
-print(getKingMoves("d4",chessBoard))
+print(getKnightMoves("d4", chessBoard))
+print(getRookMoves("d4", chessBoard))
+print(getBishopMoves("d4", chessBoard))
+print(getQueenMoves("d4", chessBoard))
+print(getKingMoves("d4", chessBoard))
+print(getPawnMoves("d4", "up", chessBoard))
